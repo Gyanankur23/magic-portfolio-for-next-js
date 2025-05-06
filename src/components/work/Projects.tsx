@@ -1,6 +1,9 @@
+"use client";
+
 import { getPosts } from "@/app/utils/utils";
-import { Column } from "@/once-ui/components";
+import { Column, Heading, Button } from "@/once-ui/components";
 import { ProjectCard } from "@/components";
+import styles from "./Projects.module.scss";
 
 interface ProjectsProps {
   range?: [number, number?];
@@ -18,20 +21,32 @@ export function Projects({ range }: ProjectsProps) {
     : sortedProjects;
 
   return (
-    <Column fillWidth gap="xl" marginBottom="40" paddingX="l">
-      {displayedProjects.map((post, index) => (
-        <ProjectCard
-          priority={index < 2}
-          key={post.slug}
-          href={`work/${post.slug}`}
-          images={post.metadata.images}
-          title={post.metadata.title}
-          description={post.metadata.summary}
-          content={post.content}
-          avatars={post.metadata.team?.map((member) => ({ src: member.avatar })) || []}
-          link={post.metadata.link || ""}
-        />
-      ))}
-    </Column>
+    <section className={styles.container}>
+      <Heading as="h1" variant="heading-strong-xl" className={styles.header}>
+        🚀 Featured Projects
+      </Heading>
+
+      <Column fillWidth gap="xl" marginBottom="40" paddingX="edProjects.map((post, index) => (
+          <ProjectCard
+            priority={index < 2}
+            key={post.slug}
+            href={`work/${post.slug}`}
+            images={post.metadata.images}
+            title={post.metadata.title}
+            description={post.metadata.summary}
+            content={post.content}
+            avatars={post.metadata.team?.map((member) => ({ src: member.avatar })) || []}
+            link={post.metadata.link || ""}
+          />
+        ))}
+      </Column>
+
+      <Button
+        onClick={() => window.open("https://www.linkedin.com/in/gyanankur", "_blank")}
+        variant="primary"
+        className={styles.linkedinButton}>
+        Connect on LinkedIn 🔗
+      </Button>
+    </section>
   );
-}
+          }

@@ -1,11 +1,20 @@
 "use client";
 
-import { Column, Flex, Heading, SmartImage, SmartLink, Tag, Text } from '@/once-ui/components';
+import { Column, Flex, Heading, SmartImage, SmartLink, Tag, Text, Button } from '@/once-ui/components';
 import styles from './Posts.module.scss';
 import { formatDate } from '@/app/utils/formatDate';
 
 interface PostProps {
-    post: any;
+    post: {
+        slug: string;
+        metadata: {
+            title: string;
+            publishedAt: string;
+            image?: string;
+            tag?: string;
+            summary?: string;
+        };
+    };
     thumbnail: boolean;
     direction?: "row" | "column";
 }
@@ -13,7 +22,6 @@ interface PostProps {
 export default function Post({ post, thumbnail, direction }: PostProps) {
     return (
         <SmartLink
-            fillWidth
             unstyled
             style={{ borderRadius: 'var(--radius-l)' }}
             key={post.slug}
@@ -26,6 +34,7 @@ export default function Post({ post, thumbnail, direction }: PostProps) {
                 className={styles.hover}
                 mobileDirection="column"
                 fillWidth>
+                
                 {post.metadata.image && thumbnail && (
                     <SmartImage
                         priority
@@ -35,32 +44,44 @@ export default function Post({ post, thumbnail, direction }: PostProps) {
                         cursor="interactive"
                         radius="l"
                         src={post.metadata.image}
-                        alt={'Thumbnail of ' + post.metadata.title}
+                        alt={`Thumbnail of ${post.metadata.title}`}
                         aspectRatio="16 / 9"
                     />
                 )}
+                
                 <Column
                     position="relative"
-                    fillWidth gap="4"
+                    fillWidth
+                    gap="8"
                     padding="24"
                     vertical="center">
+                    
                     <Heading
                         as="h2"
                         variant="heading-strong-l"
                         wrap="balance">
                         {post.metadata.title}
                     </Heading>
-                    <Text
-                        variant="label-default-s"
-                        onBackground="neutral-weak">
+                    
+                    <Text variant="label-default-s" onBackground="neutral-weak">
                         {formatDate(post.metadata.publishedAt, false)}
                     </Text>
-                    { post.metadata.tag &&
-                        <Tag
-                            className="mt-12"
-                            label={post.metadata.tag}
-                            variant="neutral" />
-                    }
+                    
+                    {post.metadata.tag && (
+                        <Tag className="mt-12" label={post.metadata.tag} variant="neutral" />
+                    )}
+
+                    {post.metadata.summary && (
+                        <Text variant="body-default-m" className={styles.summary}>
+                            {post.metadata.summary}
+                        </Text>
+                    )}
+
+                    <Flex justify="center" paddingTop="16">
+                        <Button onClick={() => window.open("https://www.linkedin.com/in/gyanankur", "_blank")}>
+                            Connect on LinkedIn
+                        </Button>
+                    </Flex>
                 </Column>
             </Flex>
         </SmartLink>

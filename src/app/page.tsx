@@ -8,6 +8,7 @@ import { home, about, person, newsletter } from "@/app/resources/content";
 import { Mailchimp } from "@/components";
 import { Posts } from "@/components/blog/Posts";
 import { Meta, Schema } from "@/once-ui/modules";
+import { getPosts } from "@/app/utils/utils";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -19,6 +20,9 @@ export async function generateMetadata() {
 }
 
 export default function Home() {
+  const allProjects = getPosts(["src", "app", "work", "projects"]);
+  const allPosts = getPosts(["src", "app", "blog", "posts"]);
+
   return (
     <Column maxWidth="m" gap="xl" horizontal="center">
       <Schema
@@ -78,7 +82,7 @@ export default function Home() {
         </Column>
       </Column>
       <RevealFx translateY="16" delay={0.6}>
-        <Projects range={[1, 1]} />
+        <Projects range={[1, 1]} projects={allProjects} />
       </RevealFx>
       {routes["/blog"] && (
         <Flex fillWidth gap="24" mobileDirection="column">
@@ -88,11 +92,11 @@ export default function Home() {
             </Heading>
           </Flex>
           <Flex flex={3} paddingX="20">
-            <Posts range={[1, 2]} columns="2" />
+            <Posts range={[1, 2]} columns="2" posts={allPosts} />
           </Flex>
         </Flex>
       )}
-      <Projects range={[2]} />
+      <Projects range={[2]} projects={allProjects} />
       {newsletter.display && <Mailchimp newsletter={newsletter} />}
     </Column>
   );

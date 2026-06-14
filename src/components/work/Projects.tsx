@@ -1,18 +1,33 @@
 "use client";
 
-import { getPosts } from "@/app/utils/utils";
 import { Column, Heading, Button } from "@/once-ui/components";
 import { ProjectCard } from "@/components";
-import styles from "./Projects.module.scss";
+
+interface Project {
+  slug: string;
+  metadata: {
+    title: string;
+    publishedAt: string;
+    summary: string;
+    images: string[];
+    team?: Array<{
+      name: string;
+      role: string;
+      avatar: string;
+      linkedIn: string;
+    }>;
+    link?: string;
+  };
+  content: string;
+}
 
 interface ProjectsProps {
   range?: [number, number?];
+  projects?: Project[];
 }
 
-export function Projects({ range }: ProjectsProps) {
-  let allProjects = getPosts(["src", "app", "work", "projects"]);
-
-  const sortedProjects = allProjects.sort((a, b) => {
+export function Projects({ range, projects = [] }: ProjectsProps) {
+  const sortedProjects = projects.sort((a, b) => {
     return new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime();
   });
 
@@ -21,12 +36,13 @@ export function Projects({ range }: ProjectsProps) {
     : sortedProjects;
 
   return (
-    <section className={styles.container}>
-      <Heading as="h1" variant="heading-strong-xl" className={styles.header}>
+    <Column>
+      <Heading as="h1" variant="heading-strong-xl">
         🚀 Featured Projects
       </Heading>
 
-      <Column fillWidth gap="xl" marginBottom="40" paddingX="edProjects.map((post, index) => (
+      <Column fillWidth gap="xl" marginBottom="40" paddingX="xl">
+        {displayedProjects.map((post, index) => (
           <ProjectCard
             priority={index < 2}
             key={post.slug}
@@ -42,11 +58,10 @@ export function Projects({ range }: ProjectsProps) {
       </Column>
 
       <Button
-        onClick={() => window.open("https://www.linkedin.com/in/gyanankur", "_blank")}
-        variant="primary"
-        className={styles.linkedinButton}>
+        onClick={() => window.open("https://www.linkedin.com/in/gyanankur-baruah-797205338", "_blank")}
+        variant="primary">
         Connect on LinkedIn 🔗
       </Button>
-    </section>
+    </Column>
   );
-          }
+}

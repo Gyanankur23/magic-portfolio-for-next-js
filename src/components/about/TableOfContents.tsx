@@ -2,17 +2,17 @@
 
 import React from "react";
 import { Column, Flex, Text, Button } from "@/once-ui/components";
-import styles from "./portfolio.module.scss";
 
 interface PortfolioProps {
-  sections: {
+  structure: {
     title: string;
     display: boolean;
     items: string[];
   }[];
+  about: any;
 }
 
-const Portfolio: React.FC<PortfolioProps> = ({ sections }) => {
+const Portfolio: React.FC<PortfolioProps> = ({ structure }) => {
   const scrollTo = (id: string, offset: number) => {
     const element = document.getElementById(id);
     if (element) {
@@ -27,25 +27,25 @@ const Portfolio: React.FC<PortfolioProps> = ({ sections }) => {
   };
 
   return (
-    <Column padding="32" className={styles.container}>
-      <Text size="large" weight="bold">🚀 Gyanankur’s Portfolio</Text>
+    <Column padding="32">
+      <Text variant="heading-strong-l">🚀 Gyanankur's Portfolio</Text>
       
-      {sections.filter(section => section.display).map((section, index) => (
+      {structure.filter(section => section.display).map((section: any, index: number) => (
         <Column key={index} gap="16">
-          <Flex cursor="interactive" className={styles.hover} vertical="center" onClick={() => scrollTo(section.title, 80)}>
-            <Text size="medium" weight="semi-bold">{section.title}</Text>
+          <Flex cursor="interactive" vertical="center" onClick={() => scrollTo(section.title, 80)}>
+            <Text variant="heading-default-s">{section.title}</Text>
           </Flex>
           
-          {section.items.map((item, itemIndex) => (
-            <Flex key={itemIndex} className={styles.item}>
+          {section.items.map((item: string, itemIndex: number) => (
+            <Flex key={itemIndex}>
               <Text>{item}</Text>
             </Flex>
           ))}
         </Column>
       ))}
 
-      <Flex justify="center" paddingTop="24">
-        <Button onClick={() => window.open("https://www.linkedin.com/in/gyanankur", "_blank")}>
+      <Flex horizontal="center" paddingTop="24">
+        <Button onClick={() => window.open("https://www.linkedin.com/in/gyanankur-baruah-797205338", "_blank")}>
           Connect on LinkedIn
         </Button>
       </Flex>

@@ -1,7 +1,6 @@
 "use client";
 
 import { Column, Flex, Heading, SmartImage, SmartLink, Tag, Text, Button } from '@/once-ui/components';
-import styles from './Posts.module.scss';
 import { formatDate } from '@/app/utils/formatDate';
 
 interface PostProps {
@@ -31,14 +30,12 @@ export default function Post({ post, thumbnail, direction }: PostProps) {
                 transition="micro-medium"
                 direction={direction}
                 radius="l"
-                className={styles.hover}
                 mobileDirection="column"
                 fillWidth>
                 
                 {post.metadata.image && thumbnail && (
                     <SmartImage
                         priority
-                        className={styles.image}
                         sizes="(max-width: 768px) 100vw, 640px"
                         border="neutral-alpha-weak"
                         cursor="interactive"
@@ -72,13 +69,13 @@ export default function Post({ post, thumbnail, direction }: PostProps) {
                     )}
 
                     {post.metadata.summary && (
-                        <Text variant="body-default-m" className={styles.summary}>
+                        <Text variant="body-default-m">
                             {post.metadata.summary}
                         </Text>
                     )}
 
-                    <Flex justify="center" paddingTop="16">
-                        <Button onClick={() => window.open("https://www.linkedin.com/in/gyanankur", "_blank")}>
+                    <Flex horizontal="center" paddingTop="16">
+                        <Button onClick={() => window.open("https://www.linkedin.com/in/gyanankur-baruah-797205338", "_blank")}>
                             Connect on LinkedIn
                         </Button>
                     </Flex>

@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Fade, Flex, Line, ToggleButton, Heading } from "@/once-ui/components";
-import styles from "@/components/Header.module.scss";
 import { routes, display } from "@/app/resources";
 import { person, about, blog, work, gallery } from "@/app/resources/content";
 import { ThemeToggle } from "./ThemeToggle";
@@ -47,7 +46,6 @@ export const Header = () => {
       <Flex
         fitHeight
         position="unset"
-        className={styles.position}
         as="header"
         zIndex={9}
         fillWidth
@@ -65,11 +63,11 @@ export const Header = () => {
             border="neutral-alpha-medium"
             radius="m-4"
             shadow="l"
-            padding="6"
+            padding="xs"
             horizontal="center"
             zIndex={1}
           >
-            <Flex gap="6" vertical="center">
+            <Flex gap="xs" vertical="center">
               {routes["/"] && <ToggleButton prefixIcon="home" href="/" selected={pathname === "/"} />}
               <Line background="neutral-alpha-medium" vert maxHeight="24" />
 

@@ -1,26 +1,35 @@
 "use client";
 
-import { getPosts } from '@/app/utils/utils';
 import { Grid, Heading, Button } from '@/once-ui/components';
 import Post from './Post';
-import styles from './Posts.module.scss';
+
+interface Post {
+  slug: string;
+  metadata: {
+    title: string;
+    publishedAt: string;
+    summary: string;
+    images: string[];
+  };
+  content: string;
+}
 
 interface PostsProps {
     range?: [number] | [number, number];
     columns?: '1' | '2' | '3';
     thumbnail?: boolean;
     direction?: 'row' | 'column';
+    posts?: Post[];
 }
 
 export function Posts({
     range,
     columns = '2',
     thumbnail = true,
-    direction
+    direction,
+    posts = []
 }: PostsProps) {
-    let allBlogs = getPosts(['src', 'app', 'blog', 'posts']);
-
-    const sortedBlogs = allBlogs.sort((a, b) => {
+    const sortedBlogs = posts.sort((a, b) => {
         return new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime();
     });
 
@@ -33,7 +42,7 @@ export function Posts({
 
     return (
         <>
-            <Heading as="h1" variant="heading-strong-xl" className={styles.header}>
+            <Heading as="h1" variant="heading-strong-xl">
                 📌 Featured Posts
             </Heading>
 
@@ -53,9 +62,8 @@ export function Posts({
             )}
 
             <Button
-                onClick={() => window.open("https://www.linkedin.com/in/gyanankur", "_blank")}
-                variant="primary"
-                className={styles.linkedinButton}>
+                onClick={() => window.open("https://www.linkedin.com/in/gyanankur-baruah-797205338", "_blank")}
+                variant="primary">
                 Connect on LinkedIn 🚀
             </Button>
         </>

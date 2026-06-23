@@ -1,6 +1,8 @@
 // IMPORTANT: Replace with your own domain address - it's used for SEO in meta tags and schema
 const baseURL = "https://gyanankur-portfolio.vercel.app";
 
+// Portfolio optimized for MNC recruiters and hiring managers
+
 const routes = {
   "/": true,
   "/about": true,

@@ -5,7 +5,7 @@ import { social } from "@/app/resources/content";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const portfolioOwner = "Gyanankur";
+  const portfolioOwner = "Gyanankur Baruah";
 
   return (
     <Flex

@@ -28,7 +28,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ structure }) => {
 
   return (
     <Column padding="32">
-      <Text variant="heading-strong-l">🚀 Gyanankur's Portfolio</Text>
+      <Text variant="heading-strong-l">🚀 Gyanankur Baruah's Portfolio</Text>
       
       {structure.filter(section => section.display).map((section: any, index: number) => (
         <Column key={index} gap="16">
